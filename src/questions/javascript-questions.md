@@ -103,12 +103,167 @@ permalink: /questions/javascript-questions/index.html
     ***
 
 - **What is a closure, and how/why would you use one?**
+
+  ***
+
+  A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). In other words, a closure gives you access to an outer function’s scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
+
+  an inner function that has access to the outer (enclosing) function’s variables — scope chain. The closure has three scope chains: it has access to its own scope (variables defined between its curly brackets), it has access to the outer function’s variables, and it has access to the global variables. Read here and at MDN. You use one when you later need access to the variables of a function that has returned alread
+
+  Example of closure.
+
+  ```javascript
+  function init() {
+    var name = "Mozilla"; // name is a local variable created by init
+    function displayName() {
+      // displayName() is the inner function, a closure
+      // displayName is closed over name
+      alert(name); // use variable declared in the parent function
+    }
+    displayName();
+  }
+
+  init();
+  ```
+
+  PS:
+
+  POLE (The Principle Of Least Exposure)
+
+  Prevent:
+
+  1. Naming Collisions
+
+  2. Unexpected Behavior: if you expose variables/func- tions whose usage is otherwise private to a piece of the program, it allows other developers to use them in ways you didn’t intend, which can violate expected behavior and cause bugs.
+
+  3. UnintendedDependency:ifyouexposevariables/func- tions unnecessarily, it invites other developers to use and depend on those otherwise private pieces. While that doesn’t break your program today,
+
+  POLE encourages us to use block (and function) scoping to limit the scope exposure of variables. This helps keep code understandable and maintainable, and helps avoid many scoping pitfalls (i.e., name collision, etc.).
+  Closure builds on this approach: for variables we need to use over time, instead of placing them in larger outer scopes, we can encapsulate (more narrowly scope) them but still preserve access from inside functions, for broader use. Functions remember these referenced scoped variables via closure.
+
+  ***
+
 - **What language constructions do you use for iterating over object properties and array items?**
+
+  ***
+
+  ```javascript
+  const arr = [1, 2, 3];
+  const obj = { a: a, b: b };
+  ```
+
+  For loop
+
+  ```javascript
+  for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+  }
+  ```
+
+  For in
+
+  ```javascript
+  for (const name in obj) {
+    console.log(obj[name]);
+  }
+  ```
+
+  For of
+
+  ```javascript
+  for (const element of arr) {
+    console.log(obj[element]);
+  }
+  ```
+
+  Array iterator
+
+  Array.prototype.forEach() is similar to for...in, but only iterates over an object’s own properties.
+
+  Array.prototype.every(): returns true if the callback returns true for every element.
+
+  Array.prototype.some(): returns true if the callback returns true for at least one element.
+
+  Array transformer
+
+  Array.prototype.map(callback, [thisValue]): Each output array element is the result of applying callback to an input element.
+
+  Array.prototype.filter(callback, [thisValue]): The output array contains only those input elements for which callback returns true.
+
+  Reduce
+
+  Array.prototype.reduce(callback, [initialValue]): Compute a value by applying callback to pairs (previousElement, currentElement) of array elements.
+
+  Array.prototype.reduceRight(callback, [initialValue]): Same as reduce(), but from right to left.
+
+  object.values()
+
+  object.key()
+
+  object.getOwnPropertyNames() includes prototype ones
+
+  ***
+
 - **Can you describe the main difference between the `Array.forEach()` loop and `Array.map()` methods and why you would pick one versus the other?**
+
+  ***
+
+  |             | map       | forEach   |
+  | ----------- | --------- | --------- |
+  | Return type | new array | undefiend |
+  | Mutability  | immutable | mutable   |
+  | Speed       | faster    |           |
+
+  ***
+
 - **What's a typical use case for anonymous functions?**
+
+  ***
+
+  Function expression and IIFE
+
+  The main difference between a function expression and a function declaration is the function name, which can be omitted in function expressions to create anonymous functions.
+
+  ***
+
 - **What's the difference between host objects and native objects?**
+
+  ***
+
+  Host objects:
+  Objects added by code hosted enviroments, for example, `console`.
+
+  Native objects:
+  Javascript built in objects, regardless the host enviroment. for example, Math object, Array objects.
+
+  ***
+
 - **Explain the difference between: `function Person(){}`, `var person = Person()`, and `var person = new Person()`?**
-- Explain the differences on the usage of `foo` between `function foo() {}` and `var foo = function() {}`
+
+  ***
+
+  `function Person(){}`: function declaration, it is a named function.It gets registered into the global namespace.
+
+  `var person = Person()`: Function expression, invoke a function and assign the return value of Person function to person.
+
+  `var person = new Person()`: Use function constructor to create a instance of function declaration;
+
+  ***
+
+- **Explain the differences on the usage of `foo` between `function foo() {}` and `var foo = function() {}`**
+
+  ***
+
+  Named function vs variable foo holds anomynous function address
+
+  Difference in hoisting.
+
+  This different, but closure is the same.
+
+  A function defined by a function expression or by a function declaration inherits the current scope
+
+  ***
+
 - Can you explain what `Function.call` and `Function.apply` do? What's the notable difference between the two?
 - Explain `Function.prototype.bind`.
 - What's the difference between feature detection, feature inference, and using the UA string?
