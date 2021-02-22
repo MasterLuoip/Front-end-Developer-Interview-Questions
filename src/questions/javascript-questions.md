@@ -265,13 +265,106 @@ permalink: /questions/javascript-questions/index.html
   ***
 
 - Can you explain what `Function.call` and `Function.apply` do? What's the notable difference between the two?
+
+  ***
+
+  apply: invoke the function with arguments as an array.
+
+  call: invoke the function with arguments splited by commas.
+
+  ***
+
 - Explain `Function.prototype.bind`.
+
+  ***
+
+  The bind() method creates a new function that, when called, has its this keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called
+
+  ***
+
 - What's the difference between feature detection, feature inference, and using the UA string?
+
+  ***
+
+  Feature detection checks a feature for existence, e.g.:
+
+  Feature inference checks for a feature just like feature detection, but uses another function because it assumes it will also exist, e.g.:
+
+  (Deprecated) Checking the UA string is an old practice and should not be used anymore. You keep changing the UA checks and never benefit from newly implemented features, e.g.:
+
+  ***
+
 - Explain "hoisting".
+
+  ***
+
+  Conceptually, for example, a strict definition of hoisting suggests that variable and function declarations are physically moved to the top of your code, but this is not in fact what happens. Instead, the variable and function declarations are put into memory during the compile phase, but stay exactly where you typed them in your code.
+
+  JavaScript only hoists declarations, not initializations. If a variable is declared and initialized after using it, the value will be undefined. For example:
+
+  ```javascript
+  console.log(num); // Returns undefined, as only declaration was hoisted, no initialization has happened at this stage throw reference error
+  var num; // Declaration
+  num = 6; // Initialization
+  ```
+
+  ***
+
 - Describe event bubbling.
+
+  ***
+
+  When an event happens on an element, it first runs the handlers on it, then on its parent, then all the way up on other ancestors.
+
+  The most deeply nested element that caused the event is called a **target element**, accessible as event.target.
+
+  But any handler may decide that the event has been fully processed and stop the bubbling.
+
+  The method for it is event.stopPropagation().
+
+  ***
+
 - Describe event capturing.
+
+  ***
+
+  The standard DOM Events describes 3 phases of event propagation:
+
+  Capturing phase – the event goes down to the element.
+
+  Target phase – the event reached the target element.
+
+  Bubbling phase – the event bubbles up from the element.
+
+  ![image](https://miro.medium.com/max/640/1*QXDzDRLYkUwbVvVGBPTWHw.png)
+
+  ***
+
 - What's the difference between an "attribute" and a "property"?
+
+  ***
+
+  attribute is html attribute. property is DOM property.
+
+  `<input type="text" value="0">`
+
+  vs
+
+  ```javascript
+  const input = document.querySelector("input");
+  console.log(input.value); // talking to the Dom property not attribute
+  ```
+
+  Update DOM won't update attribute. Two values can be different.
+
+  Use `setAttribute` can change attribute value, and property as well.
+
+  The DOM is optimized and fast, so using something like value over setAttribute makes much more sense.
+
+  ***
+
 - What are the pros and cons of extending built-in JavaScript objects?
+  
 - What is the difference between `==` and `===`?
 - Explain the same-origin policy with regards to JavaScript.
 - Why is it called a Ternary operator, what does the word "Ternary" indicate?
