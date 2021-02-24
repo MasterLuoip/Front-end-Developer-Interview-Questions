@@ -364,21 +364,290 @@ permalink: /questions/javascript-questions/index.html
   ***
 
 - What are the pros and cons of extending built-in JavaScript objects?
-  
+
+  ***
+
+  props:
+
+  1. one set up, easy to use in the future
+
+  cons:
+
+  1. But when you change the behaviour of something that is also used by other code there is a risk you will break that other code.
+
+  2. When it comes adding methods to the object and array classes in javascript, the risk of breaking something is very high, due to how javascript works.
+
+  ***
+
 - What is the difference between `==` and `===`?
+
+  ***
+
+  '==' allows coercion, left side will coersed firstly then compare.
+
+  '===' is strict compare, doesn't allow coersion.
+
+  ***
+
 - Explain the same-origin policy with regards to JavaScript.
+
+  ***
+
+  The same-origin policy is a critical security mechanism that restricts how a document or script loaded from one origin can interact with a resource from another origin. It helps isolate potentially malicious documents, reducing possible attack vectors.
+
+  Two URLs have the same origin if the protocol, port (if specified), and host are the same for both. You may see this referenced as the "scheme/host/port tuple", or just "tuple". (A "tuple" is a set of items that together comprise a whole — a generic form for double/triple/quadruple/quintuple/etc.)
+
+  ***
+
 - Why is it called a Ternary operator, what does the word "Ternary" indicate?
+
+  ***
+
+  The ternary operator is a form of syntactic sugar for if-then-else statements. It is also known as the conditional operator, which is perhaps a more meaningful name because it evaluates conditions like if does.
+
+  The name ternary refers to the fact that the operator takes three operands.
+
+  ***
+
 - What is strict mode? What are some of the advantages/disadvantages of using it?
+
+  ***
+
+  ```javascript
+  (function () {
+    "use strict"; // this is important
+    function doSomething() {
+      // this runs in strict mode
+    }
+    function doSomethingElse() {
+      // so does this
+    }
+  })();
+  ```
+
+  pros:
+
+  1. Eliminate some unreasonable and imprecise aspects of Javascript syntax and reduce some weird behaviors;
+
+  2. Eliminate some insecure parts of the code to ensure the security of the code;
+
+  3. Improve compiler efficiency and increase running speed;
+
+  4. Pave the way for a new version of Javascript in the future.
+
+  Disadvantages:
+
+  Now the JS of the site will be compressed, some files use strict mode, while others do not. At this time, these files, which were originally strict patterns, were merged, and the string reached the middle of the file. Not only did it not indicate strict mode, but it wasted bytes after compression.
+
+  ***
+
 - What are some of the advantages/disadvantages of writing JavaScript code in a language that compiles to JavaScript?
+
+  ***
+
+  Some examples of languages that compile to JavaScript include CoffeeScript, Elm, ClojureScript, PureScript, and TypeScript.
+
+  Advantages:
+
+  1. Fixs some of the longstand problems in JavaScript and discourage JavaScript anti-patterns. E.g. Referring to the non-existent undefined constant
+
+  2. Provides some syntatic sugar on top of JavaScript. Especially before ES6
+
+  3. Static types are awesome (in the case of TypeScript) for large projects that need to be maintained over time.
+
+  Disadvantage:
+
+  1. Require a build/compile process as browsers only run javascript. The project needs to compile the code to into js first before being served to browser.
+
+  2. Debugging can be a pain if your source maps do not map nicely to your pre-compiled source.
+
+  3. Most developers are not familiar with these languages and will need to learn it. There's a ramp up cost involved for your team if you use it for your projects.
+
+  ***
+
 - What tools and techniques do you use debugging JavaScript code?
+
+  ***
+
+  Browser development tool.
+  Add console.log, add debugger..., step execustion.
+
+  React Devtools
+
+  Redux Devtool
+
+  ***
+
 - Explain the difference between mutable and immutable objects.
+
+  ***
+
+  Immutability is a core principle in functional programming, and has lots to offer to object-oriented programs as well. A mutable object is an object whose state can be modified after it is created. An immutable object is an object whose state cannot be modified after it is created.
+
+  ***
+
   - What is an example of an immutable object in JavaScript?
+
+    ***
+
+    In JavaScript, some built-in types (numbers, strings) are immutable, but custom objects are generally mutable.
+
+    Some built-in immutable JavaScript objects are Math, Date.
+
+    ***
+
   - What are the pros and cons of immutability?
+
+    ***
+
+    pros:
+
+    1. Easier change detection: reference change.
+    2. Less complicated to think about, don't need to worry how ojects evolve over time.
+    3. Defensive copies are no longer necessary when immutable object are returning from or passed to functions, since immutable object will not be modified by it.
+    4. Just pass the reference
+
+    cons:
+
+    1. Bad implementation occupied much memory
+    2. Allocation (and deallocation) of many small objects rather than modifying existing ones can cause a performance impact. The complexity of either the allocator or the garbage collector usually depends on the number of objects on the heap.
+
+    ***
+
   - How can you achieve immutability in your own code?
+
+    ***
+
+    1. use libraries like immutatble.js.
+
+    2. Object Constant Properties: make writable to false and configurable: false. cannot be changed, redefined or deleted
+
+       ```javascript
+       let myObject = {};
+       Object.defineProperty(myObject, "number", {
+         value: 42,
+         writable: false,
+         configurable: false,
+       });
+       console.log(myObject.number); // 42
+       myObject.number = 43;
+       console.log(myObject.number); // 42
+       ```
+
+    3. Prevent Extensions, prevent add new property
+
+       ```javascript
+       var myObject = {
+         a: 2,
+       };
+
+       Object.preventExtensions(myObject);
+
+       myObject.b = 3;
+       myObject.b; // undefined
+       ```
+
+    4. Seal
+
+       Object.seal() creates a "sealed" object, which means it takes an existing object and essentially calls Object.preventExtensions() on it, but also marks all its existing properties as configurable: false.
+
+       So, not only can you not add any more properties, but you also cannot reconfigure or delete any existing properties (though you can still modify their values).
+
+    5. Freeze
+
+       Object.freeze() creates a frozen object, which means it takes an existing object and essentially calls Object.seal() on it, but it also marks all "data accessor" properties as writable:false, so that their values cannot be changed.
+
+       This approach is the highest level of immutability that you can attain for an object itself, as it prevents any changes to the object or to any of its direct properties (though, as mentioned above, the contents of any referenced other objects are unaffected).
+
+    ***
+
 - Explain the difference between synchronous and asynchronous functions.
+
+  ***
+
+  Synchronous functions are blocking while asynchronous functions are not. In synchronous functions, statements complete before the next statement is run. In this case, the program is evaluated exactly in order of the statements and execution of the program is paused if one of the statements take a very long time.
+
+  Asynchronous functions usually accept a callback as a parameter and execution continue on the next line immediately after the asynchronous function is invoked. The callback is only invoked when the asynchronous operation is complete and the call stack is empty. Heavy duty operations such as loading data from a web server or querying a database should be done asynchronously so that the main thread can continue executing other operations instead of blocking until that long operation to complete (in the case of browsers, the UI will freeze).
+
+  ***
+
 - What is event loop?
+  ***
+  ***
   - What is the difference between call stack and task queue?
 - What are the differences between variables created using `let`, `var` or `const`?
+
+  ***
+
+  JavaScript language is single-threaded and the asynchronous behaviour is not part of the JavaScript language itself, rather they are built on top of the core JavaScript language in the browser (or the programming environment) and accessed through the browser APIs.
+
+  Answer:
+
+  1. Not only need call stack to arrange the order but also need task queues to handle callback functions.
+
+     **Task queues** can be divided to two types: macro-task and micro-task
+
+     macro-tasks:
+     |Browser|Node|
+     |----|----|
+     |script|script|
+     |setTimeOut|setTimeOut|
+     |setImmediate|setImmediate|
+     |setInterval|setInterval|
+     |I/O|I/O|
+     |UI Render||
+
+     micro-tasks:
+     |Browser|Node|
+     |----|----|
+     |process.nextTick|process.nextTick|
+     |Promise|new Promise().then|
+     |Async/Await|setImmediate|
+     |MutationObserver|setInterval|
+
+  2. Drawer diagram
+
+     Browser:
+     !! **When callstack is empty**, then excute micro tasks, then execute macro task, then execute micro-tasks from this marco task. if any new micro-tasks generated
+     ![image](https://cdn.javascripttutorial.net/wp-content/uploads/2019/12/javascript-event-loop.png)
+
+     Node:  
+      ┌───────────────────────────┐
+     ┌─>│ timers │
+     │ └─────────────┬─────────────┘
+     │ ┌─────────────┴─────────────┐
+     │ │ pending callbacks │
+     │ └─────────────┬─────────────┘
+     │ ┌─────────────┴─────────────┐
+     │ │ idle, prepare │
+     │ └─────────────┬─────────────┘ ┌───────────────┐
+     │ ┌─────────────┴─────────────┐ │ incoming: │
+     │ │ poll │<─────┤ connections, │
+     │ └─────────────┬─────────────┘ │ data, etc. │
+     │ ┌─────────────┴─────────────┐ └───────────────┘
+     │ │ check │
+     │ └─────────────┬─────────────┘
+     │ ┌─────────────┴─────────────┐
+     └──┤ close callbacks │
+     └───────────────────────────┘
+
+     (incoming data)->(poll)->(check)->(close callback)->(timers)->I/O (I/O callbacks)->(idle, prepare)->..
+
+  3. Await/async order (chrome V8 engine):
+
+     1. If await next is a variable(sync), wrapper it to a micro task like `.then` to queue. (What V8 engine has now, it is anti-pattern. Before it will be put to the end of queue, kind like the second point).
+     2. If await next is a async, after registering the async, it jump out of await function and continue. when callstack is empty, then it will go back to code follow by array.
+
+  4. Node 11 change
+
+     Node 11, it is like browser, one macro task, (next tick is normal microtask now)then its microtasks...
+
+     Before node 11, eveey loop phase will check setImmediate queue, if there is any one, excute it before micro-tasks, then `.nextTick()`, then micro-tasks.
+
+  for more: https://cloud.tencent.com/developer/article/1601176 (CN)
+
+  ***
+
 - What are the differences between ES6 class and ES5 function constructors?
 - Can you offer a use case for the new arrow `=>` function syntax? How does this new syntax differ from other functions?
 - What advantage is there for using the arrow syntax for a method in a constructor?
