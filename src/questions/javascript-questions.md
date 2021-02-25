@@ -649,17 +649,155 @@ permalink: /questions/javascript-questions/index.html
   ***
 
 - What are the differences between ES6 class and ES5 function constructors?
+
+  ***
+
+  | ES6 class                                                 | ES5 function constructors                                                                                                                    |
+  | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Define a new object and append functions to its prototype | Function constructors looks the same, but needs `prototype` key word to append functions later. (Inheritence also needs to assign prototype) |
+  | Ensure this key word is used inside                       | ES5 function constructor focus on implementing the reusable object creation code. Any function can be used as a constructor.                 |
+  | Are not hoisted                                           | Hoisted                                                                                                                                      |
+  | Static key word                                           |                                                                                                                                              |
+  | use strict by default                                     |                                                                                                                                              |
+
+  \*class can extend function constructor
+
+  ***
+
 - Can you offer a use case for the new arrow `=>` function syntax? How does this new syntax differ from other functions?
+
+  ***
+
+  setTimeout callback use arrow, use arrow function is closed over enclosing scope, it can access this over onside setTimeout. function declaration can not do this.
+  // ES6
+
+  ```javascript
+  var obj = {
+    id: 42,
+    counter: function counter() {
+      setTimeout(() => {
+        console.log(this.id);
+      }, 1000);
+    },
+  };
+  ```
+
+  ***
+
 - What advantage is there for using the arrow syntax for a method in a constructor?
+
+  ***
+
+  _That the value of this gets set at the time of the function creation and can't change after that._ So, when the constructor is used to create a new object, this will always refer to that object.
+
+  The main takeaway here is that this can be changed for a normal function, but the context always stays the same for an arrow function. So even if you are passing around your arrow function to different parts of your application, you wouldn't have to worry about the context changing.
+
+  ***
+
 - What is the definition of a higher-order function?
+
+  ***
+
+  The main takeaway here is that this can be changed for a normal function, but the context always stays the same for an arrow function. So even if you are passing around your arrow function to different parts of your application, you wouldn't have to worry about the context changing.
+
+  Examples are Array methods like Array.prototype.map, Array.prototype.filter
+
+  ***
+
 - Can you give an example for destructuring an object or an array?
+
+  ***
+
+  ```javascript
+  const obj = {
+    key1: "1",
+    key2: "2",
+  };
+
+  const { key1, key2: newKey2 } = obj;
+
+  const arr = [1, 2];
+  const [first, second] = arr;
+  ```
+
+  ***
+
 - Can you give an example of generating a string with ES6 Template Literals?
+  ```javascript
+  const variable = "aaa";
+  console.log(`${aaa}`);
+  ```
 - Can you give an example of a curry function and why this syntax offers an advantage?
+
+  ***
+
+  Currying is a transformation of functions that translates a function from callable as f(a, b, c) into callable as f(a)(b)(c).
+
+  This technique can be useful for making code written in a functional style easier to read and compose.
+
+  Higher oder function is React is an example of curry
+
+  ***
+
 - What are the benefits of using `spread syntax` and how is it different from `rest syntax`?
+
+  ***
+
+  spread syntax: can be used in object and array.
+
+  ```javascript
+  const newAnimalsArray = [ …domesticAnimals, …notSoDomesticAnimals];
+  ```
+
+  rest syntax: get remaining element inside an array.
+  const newAnimalsArray = [ …domesticAnimals, …notSoDomesticAnimals];
+
+  ```javascript
+  const notSoDomesticAnimals = ['Salamander', 'Iguana', 'Moth', 'Sloth'];
+  const [salamander, iguana, …rest] = notSoDomesticAnimals;
+  ```
+
+  the difference between the rest and spread syntax is that while spread copies everything, rest is used when we want to retrieve all remaining elements (or all existing elements) after a destructuring operation.
+
+  ***
+
 - How can you share code between files?
+
+  ***
+
+  This depends on the JavaScript environment.
+
+  On the client (browser environment), as long as the variables/functions are declared in the global scope (window), all scripts can refer to them. Alternatively, adopt the Asynchronous Module Definition (AMD) via RequireJS for a more modular approach.
+
+  On the server (Node.js), the common way has been to use CommonJS. Each file is treated as a module and it can export variables and functions by attaching them to the module.exports object.
+
+  ES2015 defines a module syntax which aims to replace both AMD and CommonJS. This will eventually be supported in both browser and Node environments.
+
+  ***
+
 - Why you might want to create static class members?
+  ***
+  Static class members (properties/methods) are not tied to a specific instance of a class and have the same value regardless of which instance is referring to it. Static properties are typically configuration variables and static methods are usually pure utility functions which do not depend on the state of the instance.
+  ***
 - What is the difference between `while` and `do-while` loops in JavaScript?
+
+  ***
+
+  while: check the condition first.
+
+  do-while: execute the loop once then check the condition to decide whether go back to the loop.
+
+  ***
+
 - What is a promise? Where and how would you use promise?
+
+  ***
+
+  A Promise is a proxy for a value not necessarily known when the promise is created. It allows you to associate handlers with an asynchronous action's eventual success value or failure reason. This lets asynchronous methods return values like synchronous methods: instead of immediately returning the final value, the asynchronous method returns a promise to supply the value at some point in the future.
+
+  whenever you will use async function
+
+  ***
 
 ## Coding questions
 
@@ -667,14 +805,40 @@ permalink: /questions/javascript-questions/index.html
 
 ```javascript
 duplicate([1, 2, 3, 4, 5]); // [1,2,3,4,5,1,2,3,4,5]
+
+return [...array, ...array];
 ```
 
 - Create a for loop that iterates up to `100` while outputting **"fizz"** at multiples of `3`, **"buzz"** at multiples of `5` and **"fizzbuzz"** at multiples of `3` and `5`
+
+  ```javascript
+  for (let i = 3; i <= 100; i++) {
+    if (i % 3 === 0) {
+      console.log("fizz");
+      if (i % 5 === 0) {
+        console.log("fizzbuzz");
+      }
+    } else if (i % 5 == 0) {
+      console.log("buzz");
+    }
+  }
+  ```
+
 - What will be returned by each of these?
 
 ```javascript
-console.log("hello" || "world");
-console.log("foo" && "bar");
+console.log("hello" || "world"); // hello
+console.log("foo" && "bar"); // bar
 ```
 
 - Write an immediately invoked function expression (IIFE)
+
+```javascript
+(function () {
+  console.log("IIFC");
+})();
+```
+
+Note:
+
+arrow function scope is fixed is where it is created.
