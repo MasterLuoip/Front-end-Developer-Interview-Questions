@@ -325,16 +325,183 @@ permalink: /questions/css-questions/index.html
 - What's the difference between inline and inline-block?
   Displays an element as an inline element (like <span>). Any height and width properties will have no effect
 
+  ***
+
   Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values
 
+  ***
+
 - What's the difference between the "nth-of-type()" and "nth-child()" selectors?
+
+  ***
+
+  Our :nth-child selector, in “Plain English,” means select an element if:
+
+  It is a paragraph element
+  It is the second child of a parent
+  Our :nth-of-type selector, in “Plain English,” means:
+
+  Select the second paragraph child of a parent
+
+  ```html
+  <section>
+    <h1>Words</h1>
+    <p>Little</p>
+    <!-- p:nth-child(2) { color: red; } -->
+    <p>Piggy</p>
+    <!--  p:nth-of-type(2) { color: red; } -->
+  </section>
+  ```
+
+  ***
+
 - What's the difference between a relative, fixed, absolute and statically positioned element?
+  css posistion
+
+  ***
+
+  `static`:
+
+  default position style. Static positioned elements are not affected by the top, bottom, left, and right properties.
+
+  An element with position: static; is not positioned in any special way; it is always positioned according to the normal flow of the page:
+
+  `fixed`:
+
+  An element with position: fixed; is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. The top, right, bottom, and left properties are used to position the element.
+
+  A fixed element does not leave a gap in the page where it would normally have been located.
+
+  `relative`:
+
+  An element with position: relative; is positioned relative to its normal position.
+
+  Setting the top, right, bottom, and left properties of a relatively-positioned element will cause it to be adjusted away from its normal position. Other content will _not be adjusted to fit into any gap left by the element._
+
+  `absolute`:
+  An element with position: absolute; is positioned relative to the nearest positioned ancestor with relative position (instead of positioned relative to the viewport, like fixed).
+
+  However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.
+
+  Note: A "positioned" element is one whose position is anything except static.
+
+  `sticky`:
+
+  An element with position: sticky; is positioned based on the user's scroll position.
+
+  A sticky element toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed).
+
+  ***
+
 - What existing CSS frameworks have you used locally, or in production? How would you change/improve them?
+  ***
+  **material ui**: It is very popural in react development. Integrated with material UI icon. Easy to use, responsive view. Grid system. Sometime maybe hard to customize component
+  ***
 - Have you used CSS Grid?
+
+  ***
+
+  The CSS Grid Layout Module offers a grid-based layout system, with rows and columns, making it easier to design web pages without having to use floats and positioning.
+
+  Material UI:
+  The grid creates visual consistency between layouts while allowing flexibility across a wide variety of designs. Material Design’s responsive UI is based on a 12-column grid layout.
+
+  How it works
+
+  1. It uses `CSS’s Flexible Box` module for high flexibility.
+
+  2. There are two types of layout: containers and items.
+
+  3. Item widths are set in percentages, so they’re always fluid and sized relative to their parent element.
+
+  4. Items have padding to create the spacing between individual items.
+
+  5. There are five grid breakpoints: xs, sm, md, lg, and xl.
+
+  ***
+
 - Can you explain the difference between coding a web site to be responsive versus using a mobile-first strategy?
+
+  ***
+
+  When you first create or re-create your website, you don’t have to choose between a mobile-first or responsive design. Instead, the former is actually a design strategy (mobile-first), while the latter is the result of a technical approach (responsive).
+
+  If a business develops its website, the design is often based on the assumption that visitors will browse it on a desktop computer. Then, the website is modified to adapt to different devices, including smartphones and tablets. In other words, the site is scaled down; this approach is widely known as graceful degradation or desktop-first.
+
+  Unfortunately, many visual aspects and features of a website are optimized for desktop computers—but adapt poorly to mobile devices. This is when designers adapt a new approach called progressive enhancement or a mobile-first strategy.
+
+  By doing so, they initially design a website for the smallest mobile devices possible and then scale upwards to adapt to desktop computers.
+
+  ***
+
 - Have you ever worked with retina graphics? If so, when and what techniques did you use?
+
+  ***
+
+  The term Retina mentioned in the title of this post is a friendly word used by Apple to lay emphasis on the double density pixels screen of its devices.
+
+  CSS pixel is an abstract unit used by the browsers to draw images and other content on a web page. CSS pixels are DIPs which means they are device independent pixels. They readjust themselves according to the pixel density of the screen they are rendered in.
+
+  Techniques
+
+  1. Media query for image size
+  2. Use svg instead of bitmap images
+  3. Using JavaScript to replace all the images with double sized image
+  4. Using @face-fonts instead of images icon
+
+  ***
+
 - Is there any reason you'd want to use `translate()` instead of _absolute positioning_, or vice-versa? And why?
+
+  ***
+
+  The translate() CSS function repositions an element in the horizontal and/or vertical directions. Its result is a `<transform-function>` data type.
+
+  translate() is a value of CSS transform. Changing transform or opacity does not trigger browser reflow or repaint, only compositions, whereas changing the absolute positioning triggers reflow. transform causes the browser to create a GPU layer for the element but changing absolute positioning properties uses the CPU. Hence translate() is more efficient and will result in shorter paint times for smoother animations.
+
+  When using translate(), the element still takes up its original space (sort of like position: relative), unlike in changing the absolute positioning.
+
+  ***
+
 - How is clearfix css property useful?
+
+  ***
+
+  A clearfix is a way for an element to automatically clear its child elements, so that you don't need to add additional markup. It's generally used in float layouts where elements are floated to be stacked horizontally.
+
+  p.s: out of date float techinique, explain you will use flexbox
+
+  ***
+
 - Can you explain the difference between px, em and rem as they relate to font sizing?
+
+  ***
+
+  Pixel `(px)` is a commonly used CSS unit on websites. pxis not scalable, it is an absolute unit.
+
+  The computed pixel value of `em` unit is relative to the font size of the element being styled. This is also affected by inherited values from the parent elements unless it is explicitly overridden by a pxunit which is not subject to inheritance.
+
+  The computed pixel value of `rem` unit is relative to the font size of the root (html) element. This is however affected by the font size setting on the browser as a result of inheritance unless it is overridden by a pxunit which is not subject to inheritance.
+
+  For more: https://www.w3schools.com/cssref/css_units.asp
+
+  ***
+
 - Can you give an example of a pseudo class? Can you provide an example use case for a pseudo class?
+
+  ***
+
+  A CSS pseudo-class is a keyword added to a selector that specifies a special state of the selected element(s). For example, :hover can be used to change a button's color when the user's pointer hovers over it.
+
+  Pseudo-classes let you apply a style to an element not only in relation to the content of the document tree, but also in relation to external factors like the history of the navigator (:visited, for example), the status of its content (like :checked on certain form elements), or the position of the mouse (like :hover, which lets you know if the mouse is over an element or not).
+
+  Note: In contrast to pseudo-classes, pseudo-elements can be used to style a specific part of an element.
+
+  for more: https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes
+
+  ***
+
 - What is the difference between a block level element and an inline element. Can you provide examples of each type of element?
+  ***
+  Inline elements are those which only occupy the space bounded by the tags defining the element, instead of breaking the flow of the content. In this article, we'll examine HTML inline-level elements and how they differ from block-level elements.
+  ***

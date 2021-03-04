@@ -572,10 +572,8 @@ permalink: /questions/javascript-questions/index.html
   ***
 
 - What is event loop?
+
   ***
-  ***
-  - What is the difference between call stack and task queue?
-- What are the differences between variables created using `let`, `var` or `const`?
 
   ***
 
@@ -645,6 +643,46 @@ permalink: /questions/javascript-questions/index.html
      Before node 11, eveey loop phase will check setImmediate queue, if there is any one, excute it before micro-tasks, then `.nextTick()`, then micro-tasks.
 
   for more: https://cloud.tencent.com/developer/article/1601176 (CN)
+
+  ***
+
+- What is the difference between call stack and task queue?
+
+  ***
+
+  CallStack is a data structure which keeps track of function calls in our program. When ever we call a function for its execution, we are pushing it to the stack. It is popped out of the stack when the execution is completed.
+
+  Task Queue (Micro task Queue) is a JavaScript runtime messaging queue which handles task that is allocated by different Web Apis. This queue is dedicated to handle the Web Apis callbacks. The message are processed once the call stack is clear.
+
+  ***
+
+- What are the differences between variables created using `let`, `var` or `const`?
+
+  ***
+
+  1. Declaration and assignment.
+
+     var can be re-declared and re-assigned.
+
+     let and const can't be re-declared.
+
+     const can't be re-assigned but let can be re-assigned
+
+  2. Scope
+
+     In short, var is function scope.
+
+     let and const are block scope.
+
+     Function scope is within the function.
+
+     Block scope is within curly brackets.
+
+  3. Hoisting
+
+     var is hoisted, if not value assigned it will be initialised to be undefined.
+
+     let and const also hoisted, but not be initialised. when you can it, throw an error ReferenceError. Introduce “Temporal Dead Zone”, A time span between variable creation and its initialization where they can’t be accessed.
 
   ***
 
